@@ -19,6 +19,7 @@ class Post(models.Model):
         return self.title
 
 class Comment(models.Model):
+    #blog 게시글 번호에 해당하는 foreignkey 필드 필요!
     #post = models.ForeignKey('blog.Post', related_name='comments')
     name = models.CharField(max_length=50,blank=True)
     text = models.TextField()

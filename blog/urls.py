@@ -9,5 +9,6 @@ urlpatterns = [
     url(r'^post/(?P<pk>\d+)/edit/$', views.post_edit, name='post_edit'),
     url(r'^post/(?P<pk>\d+)/comments/$', views.comment_new, name='post_comment'),
     url(r'^drafts/$', views.post_draft_list, name='post_draft_list'),
+    url(r'^post/(?P<pk>\d+)/remove/$', views.post_remove, name='post_remove'),
 #    url(r'^post/(?P<pk>\d+)/comment/$', views.add_comment_to_post, name='add_comment_to_post'),
 ]

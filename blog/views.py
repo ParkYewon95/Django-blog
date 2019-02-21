@@ -1,7 +1,7 @@
 from django.shortcuts import render, get_object_or_404 , redirect
 from django.utils import timezone
 from .models import Post
-from .forms import CommentForm
+from .forms import CommentForm, PostForm
 
 # Create your views here.
 def post_list(request):
@@ -19,7 +19,7 @@ def post_new(request):
         form = PostForm(request.POST)
         if form.is_valid():
             post = form.save(commit=False)
-            post.author = request.user
+            #post.author = request.user
             #post.published_date = timezone.now()
             post.save()
             return redirect('post_detail', pk=post.pk)
@@ -33,13 +33,18 @@ def post_edit(request, pk):
         form = PostForm(instance=post)
         if form.is_valid():
             post = form.save(commit=False)
-            post.author = request.user
+            #post.author = request.user
             #post.published_date = timezone.now()
             post.save()
             return redirect('post_detail', pk=post.pk)
     else:
         form = PostForm(instance=post)
     return render(request, 'blog/post_edit.html', {'form': form})
+
+def post_remove(request, pk):
+    post = get_object_or_404(Post, pk=pk)
+    post.delete()
+    return redirect('post_list')
 
 def comment_new(request, pk):
     if request.method == 'POST':
@@ -51,7 +56,7 @@ def comment_new(request, pk):
             return redirect('post_detail', pk=post.pk)
         else:
             form = CommentForm()
-        return render(request, 'blog/post_form.html',{'form': form})
+        return render(request, 'blog/post_comment_form.html',{'form': form})
 
 
 def post_draft_list(request):
