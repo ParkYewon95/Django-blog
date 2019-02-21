@@ -15,6 +15,7 @@ def post_detail(request, pk):
     return render(request, 'blog/post_detail.html', {'post': post})
 
 def post_new(request):
+    post = get_object_or_404(Post, pk=pk)
     if request.method == "POST":
         form = PostForm(request.POST)
         if form.is_valid():
@@ -56,7 +57,7 @@ def comment_new(request, pk):
             return redirect('post_detail', pk=post.pk)
         else:
             form = CommentForm()
-        return render(request, 'blog/post_comment_form.html',{'form': form})
+        return render(request, 'blog/post_comment_form.html', {'form': form})
 
 
 def post_draft_list(request):
